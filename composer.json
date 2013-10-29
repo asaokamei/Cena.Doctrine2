@@ -1,0 +1,16 @@
+{
+    "name": "asaokamei/cena.doctrine2",
+    "description": "Cena for Doctrine2 project.",
+    "authors": [
+        {
+            "name": "Asao",
+            "email": "kamei@workspot.jp"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "wscore/datamapper": "dev-master",
+        "wscore/cena": "dev-master",
+        "doctrine/orm": "2.3.4"
+    }
+}
