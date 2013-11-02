@@ -11,6 +11,7 @@
     "require": {
         "wscore/datamapper": "dev-master",
         "wscore/cena": "dev-master",
-        "doctrine/orm": "2.3.4"
+        "doctrine/orm": "2.4.*",
+        "symfony/yaml": "2.*"
     }
 }
