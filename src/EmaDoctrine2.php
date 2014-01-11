@@ -7,7 +7,7 @@ use WScore\Cena\EntityMap;
 class EmaDoctrine2 implements EmAdapterInterface
 {
     /**
-     * @var EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
     
@@ -40,14 +40,43 @@ class EmaDoctrine2 implements EmAdapterInterface
      * fetch a entity from database or forge a new object.
      * should use getEntityByCenaId, instead.
      *
-     * @param string $model
+     * @param string $class
      * @param string $type
      * @param string $id
      * @return mixed
      */
-    public function fetchEntity( $model, $type, $id )
+    public function fetchEntity( $class, $type, $id )
     {
-        // TODO: Implement fetchEntity() method.
+        if( $type == 'new' ) {
+            return $this->newEntity( $class );
+        } else {
+            return $this->findEntity( $class, $id );
+        }
+    }
+
+    /**
+     * @param       $class
+     * @param array $data
+     * @return object
+     */
+    public function newEntity( $class, $data=array() )
+    {
+        $entity = new $class;
+        $this->em->persist( $entity );
+        if( $data ) {
+            $this->loadData( $entity, $data );
+        }
+        return $entity;
+    }
+
+    /**
+     * @param $class
+     * @param $id
+     * @return null|object
+     */
+    public function findEntity( $class, $id )
+    {
+        return $this->em->find( $class, $id );
     }
 
     /**
@@ -110,7 +139,15 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function loadData( $entity, $data )
     {
-        // TODO: Implement loadData() method.
+        foreach( $data as $key => $val )
+        {
+            if( isset( $entity->$key ) ) {
+                $entity->$key = $val;
+            } elseif( method_exists( $entity, 'set'.ucwords($key) ) ) {
+                $method = 'set'.ucwords($key);
+                $entity->$method( $val );
+            }
+        }
     }
 
     /**
