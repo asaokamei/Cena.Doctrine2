@@ -69,28 +69,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * get an entity from entity manager collection.
-     *
-     * @param string $cenaId
-     * @return object
-     */
-    public function getEntityByCenaId( $cenaId )
-    {
-        // TODO: Implement getEntityByCenaId() method.
-    }
-
-    /**
-     * get CenaID from an entity object.
-     *
-     * @param object $entity
-     * @return string
-     */
-    public function getCenaIdByEntity( $entity )
-    {
-        // TODO: Implement getCenaIdByEntity() method.
-    }
-
-    /**
      * returns if the $entity object is marked as delete.
      *
      * @param object $entity
