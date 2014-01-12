@@ -38,6 +38,14 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
+     * saves entities to database. 
+     */
+    public function save()
+    {
+        $this->em->flush();
+    }
+
+    /**
      * fetch a entity from database or forge a new object.
      * should use getEntityByCenaId, instead.
      *
