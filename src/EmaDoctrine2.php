@@ -2,6 +2,7 @@
 namespace WScore\Cena\EmAdapter;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\UnitOfWork;
 use WScore\Cena\EntityMap;
 
 class EmaDoctrine2 implements EmAdapterInterface
@@ -105,7 +106,11 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function isDeleted( $entity )
     {
-        // TODO: Implement isDeleted() method.
+        $state = $this->em->getUnitOfWork()->getEntityState( $entity );
+        if( $state == UnitOfWork::STATE_REMOVED ) {
+            return true;
+        } 
+        return false;
     }
 
     /**
@@ -116,7 +121,11 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function isRetrieved( $entity )
     {
-        // TODO: Implement isRetrieved() method.
+        $state = $this->em->getUnitOfWork()->getEntityState( $entity );
+        if( $state == UnitOfWork::STATE_MANAGED ) {
+            return true;
+        }
+        return false;
     }
 
     /**
