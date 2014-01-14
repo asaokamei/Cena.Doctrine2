@@ -12,8 +12,6 @@
         "cena/cena": "dev-master",
         "wscore/datamapper": "dev-master",
         "wscore/cena": "dev-master",
-        "doctrine/orm": "2.4.*",
-        "symfony/yaml": "2.*",
-        "symfony/framework-standard-edition": "v2.3.5"
+        "doctrine/orm": "2.4.*"
     }
 }
