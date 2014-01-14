@@ -1,9 +1,9 @@
 <?php
-namespace WScore\Cena\EmAdapter;
+namespace Cena\Doctrine2;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
-use WScore\Cena\EntityMap;
+use Cena\Cena\EmAdapterInterface;
 
 class EmaDoctrine2 implements EmAdapterInterface
 {
@@ -21,7 +21,7 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
     
     /**
-     * @param EntityMap $map
+     * @param array $map
      * @return mixed
      */
     public function setEntityMap( $map )
@@ -86,24 +86,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     public function findEntity( $class, $id )
     {
         return $this->em->find( $class, $id );
-    }
-
-    /**
-     * @param object $entity
-     * @return mixed
-     */
-    public function getId( $entity )
-    {
-        // TODO: Implement getId() method.
-    }
-
-    /**
-     * @param object $entity
-     * @return mixed
-     */
-    public function getIdName( $entity )
-    {
-        // TODO: Implement getIdName() method.
     }
 
     /**
