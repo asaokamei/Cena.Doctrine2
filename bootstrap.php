@@ -3,6 +3,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 require_once( __DIR__ . '/vendor/autoload.php' );
+include( __DIR__ . '/autoload.php' );
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
 $paths = array(__DIR__ ."/src");
