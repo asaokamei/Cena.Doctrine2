@@ -21,7 +21,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $em = include( __DIR__ . '/../../bootstrap.php' );
+        $em = include( __DIR__ . '/../autotest.php' );
 
         $this->ema = new EmaDoctrine2();
         $this->ema->setEntityManager( $em );
