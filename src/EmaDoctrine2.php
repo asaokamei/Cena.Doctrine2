@@ -37,24 +37,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * fetch a entity from database or forge a new object.
-     * should use getEntityByCenaId, instead.
-     *
-     * @param string $class
-     * @param string $type
-     * @param string $id
-     * @return mixed
-     */
-    public function fetchEntity( $class, $type, $id )
-    {
-        if( $type == 'new' ) {
-            return $this->newEntity( $class );
-        } else {
-            return $this->findEntity( $class, $id );
-        }
-    }
-
-    /**
      * @param       $class
      * @param array $data
      * @return object
