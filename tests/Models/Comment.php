@@ -63,5 +63,13 @@ class Comment
     {
         $this->comment = $comment;
     }
+
+    /**
+     * @param Message $message
+     */
+    public function setMessage( Message $message )
+    {
+        $this->message = $message;
+    }
 }
 

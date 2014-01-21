@@ -74,4 +74,19 @@ class Message
         return $this->message_id;
     }
 
+    /**
+     * @param Comment $comment
+     */
+    public function addComment( Comment $comment )
+    {
+        $this->comments[] = $comment;
+    }
+
+    /**
+     * @return ArrayCollection|Comment[]
+     */
+    public function getComment()
+    {
+        return $this->comments;
+    }
 }

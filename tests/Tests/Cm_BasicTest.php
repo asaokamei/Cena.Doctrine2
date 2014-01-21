@@ -7,6 +7,7 @@ use Cena\Cena\Composition;
 use Cena\Cena\EmAdapterInterface;
 use Cena\Doctrine2\EmaDoctrine2;
 use Doctrine\ORM\EntityManager;
+use Tests\Models\Comment;
 use Tests\Models\Message;
 
 /**
@@ -54,6 +55,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         );
         $this->cm->setEntityManager( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
+        $this->cm->setClass( 'Tests\Models\Comment' );
     }
     
     function test0()
@@ -105,5 +107,26 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotSame( $message, $entity2 );
         $this->assertEquals( $message->getMessage(), $entity2->getMessage() );
+    }
+
+    /**
+     * it turns out there's nothing much to test here.
+     * it is testing basic Doctrine2's association.
+     * @test
+     */
+    function relations()
+    {
+        /** @var Message $message */
+        $contentM = 'message-'.md5(uniqid());
+        $message = $this->cm->newEntity( 'Message' );
+        $message->setMessage( $contentM );
+
+        /** @var Comment $comment */
+        $contentC = 'comment-'.md5(uniqid());
+        $comment = $this->cm->newEntity( 'Comment' );
+        $comment->setComment( $contentC );
+
+        $comment->setMessage( $message );
+        $this->cm->save();
     }
 }
