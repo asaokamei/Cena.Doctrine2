@@ -35,6 +35,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         $tool = new \Doctrine\ORM\Tools\SchemaTool( $em );
         $classes = array(
             $em->getClassMetadata( 'Tests\Models\Message' ),
+            $em->getClassMetadata( 'Tests\Models\Comment' ),
         );
         $tool->dropSchema( $classes );
         $tool->createSchema( $classes );

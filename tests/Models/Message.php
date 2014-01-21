@@ -11,7 +11,7 @@ class Message
      * @Column(type="integer")
      * @GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $message_id;
     
     /**
      * @Column(length=140)
@@ -60,7 +60,7 @@ class Message
      */
     public function getId()
     {
-        return $this->id;
+        return $this->message_id;
     }
 
 }

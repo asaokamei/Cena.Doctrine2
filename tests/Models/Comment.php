@@ -1,0 +1,54 @@
+<?php
+namespace Tests\Models;
+
+/**
+ * @Entity
+ */
+class Comment
+{
+    /**
+     * @var int
+     * @id
+     * @Column(type="integer")
+     * @GeneratedValue(strategy="AUTO")
+     */
+    private $comment_id;
+
+    /**
+     * @var string
+     * @Column(length=140)
+     */
+    private $comment;
+
+    /**
+     * @Column(type="datetime", name="posted_at")
+     */
+    private $postedAt;
+
+    /**
+     * @var
+     * @OneToOne( targetEntity="Tests\Models\Message" )
+     * @JoinColumn( name="message_id", referencedColumnName="message_id" )
+     */
+    private $message;
+
+    public function __construct()
+    {
+        $this->postedAt = new \DateTime( 'now', new \DateTimeZone( 'Asia/Tokyo' ) );
+    }
+    public function getId()
+    {
+        return $this->comment_id;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function setComment($name)
+    {
+        $this->comment = $name;
+    }
+}
+
