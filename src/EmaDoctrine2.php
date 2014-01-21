@@ -19,15 +19,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     {
         $this->em = $em;
     }
-    
-    /**
-     * @param array $map
-     * @return mixed
-     */
-    public function setEntityMap( $map )
-    {
-        // TODO: Implement setEntityMap() method.
-    }
 
     /**
      * @return EntityManager
