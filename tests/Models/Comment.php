@@ -27,7 +27,7 @@ class Comment
 
     /**
      * @var
-     * @OneToOne( targetEntity="Tests\Models\Message" )
+     * @ManyToOne( targetEntity="Tests\Models\Message", inversedBy="comments" )
      * @JoinColumn( name="message_id", referencedColumnName="message_id" )
      */
     private $message;

@@ -1,6 +1,8 @@
 <?php
 namespace Tests\Models;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @Entity
  */
@@ -23,6 +25,13 @@ class Message
      */
     private $postedAt;
 
+    /**
+     * @var
+     * @OneToMany( targetEntity="Tests\Models\Comment", mappedBy="message" )
+     * @JoinColumn( name="comment_id", referencedColumnName="comment_id" )
+     */
+    private $comments;
+
     // +----------------------------------------------------------------------+
     /**
      * 
@@ -30,6 +39,7 @@ class Message
     public function __construct()
     {
         $this->postedAt = new \DateTime( 'now', new \DateTimeZone( 'Asia/Tokyo' ) );
+        $this->comments = new ArrayCollection();
     }
 
     /**
