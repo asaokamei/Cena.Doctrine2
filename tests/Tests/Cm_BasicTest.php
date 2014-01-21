@@ -81,7 +81,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         /** @var Message $message */
         $content = 'tests-'.md5(uniqid());
         $message = $this->cm->newEntity( 'Message' );
-        $message->setText( $content );
+        $message->setMessage( $content );
 
         // save the entity.
         $this->assertEquals( null, $message->getId() );
@@ -100,9 +100,10 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         /** @var EntityManager $em */
         $em = $this->cm->getEntityManager()->em();
         $em->clear();
+        /** @var Message $entity2 */
         $entity2 = $em->find( 'Tests\Models\Message', $id );
 
         $this->assertNotSame( $message, $entity2 );
-        $this->assertEquals( $message->getText(), $entity2->getText() );
+        $this->assertEquals( $message->getMessage(), $entity2->getMessage() );
     }
 }

@@ -16,7 +16,7 @@ class Message
     /**
      * @Column(length=140)
      */
-    private $text;
+    private $message;
     
     /**
      * @Column(type="datetime", name="posted_at")
@@ -31,20 +31,21 @@ class Message
     {
         $this->postedAt = new \DateTime( 'now', new \DateTimeZone( 'Asia/Tokyo' ) );
     }
+
     /**
      * @return mixed
      */
-    public function getText()
+    public function getMessage()
     {
-        return $this->text;
+        return $this->message;
     }
 
     /**
      * @param mixed $text
      */
-    public function setText( $text )
+    public function setMessage( $text )
     {
-        $this->text = $text;
+        $this->message = $text;
     }
 
     /**

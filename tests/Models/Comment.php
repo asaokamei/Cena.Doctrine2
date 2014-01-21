@@ -32,23 +32,36 @@ class Comment
      */
     private $message;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->postedAt = new \DateTime( 'now', new \DateTimeZone( 'Asia/Tokyo' ) );
     }
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->comment_id;
     }
 
+    /**
+     * @return string
+     */
     public function getComment()
     {
         return $this->comment;
     }
 
-    public function setComment($name)
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
     {
-        $this->comment = $name;
+        $this->comment = $comment;
     }
 }
 
