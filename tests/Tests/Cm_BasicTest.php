@@ -6,7 +6,17 @@ use Cena\Cena\Collection;
 use Cena\Cena\Composition;
 use Cena\Cena\EmAdapterInterface;
 use Cena\Doctrine2\EmaDoctrine2;
+use Doctrine\ORM\EntityManager;
+use Tests\Models\Message;
 
+/**
+ * Class Cm_BasicTest
+ *
+ * An integration test for Cena/Cena.Doctrine2.
+ * Uses MySQL databases for testing.
+ *
+ * @package Tests\Tests
+ */
 class Cm_BasicTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -18,6 +28,17 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
      * @var CenaManager
      */
     public $cm;
+
+    static function setUpBeforeClass()
+    {
+        $em = include( __DIR__ . '/../autotest.php' );
+        $tool = new \Doctrine\ORM\Tools\SchemaTool( $em );
+        $classes = array(
+            $em->getClassMetadata( 'Tests\Models\Message' ),
+        );
+        $tool->dropSchema( $classes );
+        $tool->createSchema( $classes );
+    }
 
     function setUp()
     {
@@ -49,5 +70,38 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals( 'Tests\Models\Message', get_class( $message ) );
         $this->assertEquals( 'Message.0.1', $cenaId );
+    }
+
+    /**
+     * @test
+     */
+    function save_new_entities_to_db()
+    {
+        /** @var Message $message */
+        $content = 'tests-'.md5(uniqid());
+        $message = $this->cm->newEntity( 'Message' );
+        $message->setText( $content );
+
+        // save the entity.
+        $this->assertEquals( null, $message->getId() );
+        $this->cm->save();
+
+        // also check if id is populated.
+        $id = $message->getId();
+        $this->assertNotEquals( null, $id );
+
+        // get the message.
+        /** @var Message $entity */
+        $entity = $this->cm->getEntity( 'Message', $id );
+        $this->assertSame( $message, $entity );
+
+        // get really new message entity.
+        /** @var EntityManager $em */
+        $em = $this->cm->getEntityManager()->em();
+        $em->clear();
+        $entity2 = $em->find( 'Tests\Models\Message', $id );
+
+        $this->assertNotSame( $message, $entity2 );
+        $this->assertEquals( $message->getText(), $entity2->getText() );
     }
 }

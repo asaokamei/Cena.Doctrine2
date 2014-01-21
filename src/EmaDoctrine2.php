@@ -30,7 +30,7 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * @return mixed
+     * @return EntityManager
      */
     public function em()
     {
