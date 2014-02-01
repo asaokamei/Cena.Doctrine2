@@ -3,7 +3,7 @@ namespace Cena\Doctrine2;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\UnitOfWork;
-use Cena\Cena\EmAdapterInterface;
+use Cena\Cena\EmAdapter\EmAdapterInterface;
 
 class EmaDoctrine2 implements EmAdapterInterface
 {

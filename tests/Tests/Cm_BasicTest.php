@@ -2,9 +2,8 @@
 namespace Tests\Tests;
 
 use Cena\Cena\CenaManager;
-use Cena\Cena\Collection;
-use Cena\Cena\Composition;
-use Cena\Cena\EmAdapterInterface;
+use Cena\Cena\Utils\Collection;
+use Cena\Cena\Utils\Composition;
 use Cena\Doctrine2\EmaDoctrine2;
 use Doctrine\ORM\EntityManager;
 use Tests\Models\Comment;
