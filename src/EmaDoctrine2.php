@@ -141,7 +141,7 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function getId( $entity )
     {
-        $meta = $this->em->getClassMetadata( $entity );
+        $meta = $this->em->getClassMetadata( get_class( $entity ) );
         $id = $meta->getIdentifierValues( $entity );
         return $id;
     }

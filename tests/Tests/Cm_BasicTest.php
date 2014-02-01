@@ -21,7 +21,7 @@ use Tests\Models\Message;
 class Cm_BasicTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var EmAdapterInterface
+     * @var EmaDoctrine2
      */
     public $ema;
 
@@ -141,5 +141,31 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         
         $retrieved = $this->cm->fetch( $cenaId );
         $this->assertSame( $message, $retrieved );
+    }
+
+    /**
+     * @test
+     */
+    function register_entity_retrieved_from_db()
+    {
+        // save a message to db using EntityManager.
+        $message = new Message();
+        $content = 'register:'.md5(uniqid());
+        $message->setMessage( $content );
+        
+        $em = $this->ema->em();
+        $em->persist( $message );
+        $em->flush();
+        $em->clear();
+        
+        $msg_id   = $message->getId();
+        $message2 = $em->find( 'Tests\Models\Message', $msg_id );
+        
+        $this->assertNotSame( $message, $message2 );
+        $this->assertEquals( $message->getMessage(), $message2->getMessage() );
+        
+        // now test registering the message2 as cena object.
+        $cenaId = $this->cm->register( $message2 );
+        $this->assertEquals( 'Message.1.'.$msg_id, $cenaId );
     }
 }
