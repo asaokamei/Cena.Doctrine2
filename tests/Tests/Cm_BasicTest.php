@@ -2,6 +2,7 @@
 namespace Tests\Tests;
 
 use Cena\Cena\CenaManager;
+use Cena\Cena\Utils\ClassMap;
 use Cena\Cena\Utils\Collection;
 use Cena\Cena\Utils\Composition;
 use Cena\Doctrine2\EmaDoctrine2;
@@ -50,7 +51,8 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
 
         $this->cm = new CenaManager(
             new Composition(),
-            new Collection()
+            new Collection(),
+            new ClassMap()
         );
         $this->cm->setEntityManager( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
