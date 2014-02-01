@@ -134,4 +134,15 @@ class EmaDoctrine2 implements EmAdapterInterface
     {
         // TODO: Implement relate() method.
     }
+
+    /**
+     * @param object $entity
+     * @return string|array
+     */
+    public function getId( $entity )
+    {
+        $meta = $this->em->getClassMetadata( $entity );
+        $id = $meta->getIdentifierValues( $entity );
+        return $id;
+    }
 }

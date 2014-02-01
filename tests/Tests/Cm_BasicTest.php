@@ -129,4 +129,17 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         $comment->setMessage( $message );
         $this->cm->save();
     }
+
+    /**
+     * @test
+     */
+    function register_new_entity()
+    {
+        $message = new Message();
+        $message->setMessage( 'new registry: ' . md5(uniqid()) );
+        $cenaId  = $this->cm->register( $message );
+        
+        $retrieved = $this->cm->fetch( $cenaId );
+        $this->assertSame( $message, $retrieved );
+    }
 }
