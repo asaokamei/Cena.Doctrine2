@@ -90,4 +90,32 @@ class Cm_UnitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals( 'MYTest', $access );
     }
 
+    /**
+     * @test
+     */
+    function isCollection_returns_true_for_array()
+    {
+        $array = array( 'test' );
+        $this->assertTrue( $this->ema->isCollection( $array ) );
+    }
+
+    /**
+     * @test
+     */
+    function isCollection_returns_true_for_ArrayAccess()
+    {
+        $array = $this->getMock( '\ArrayAccess' );
+        $this->assertTrue( $this->ema->isCollection( $array ) );
+    }
+
+    /**
+     * @test
+     */
+    function isCollection_returns_false_for_anything_else()
+    {
+        $object = new \StdClass;
+        $this->assertFalse( $this->ema->isCollection( $object ) );
+        $this->assertFalse( $this->ema->isCollection( 'hi' ) );
+    }
+
 }
