@@ -116,12 +116,11 @@ class EmaDoctrine2 implements EmAdapterInterface
     {
         foreach( $data as $key => $val )
         {
-            if( isset( $entity->$key ) ) {
+            if( property_exists( $entity, $key ) ) {
                 $entity->$key = $val;
                 continue;
             }
-            if( is_array( $entity ) || 
-                ( is_object( $entity ) && $entity instanceof \ArrayAccess ) ) {
+            if( $entity instanceof \ArrayAccess ) {
                 $entity[ $key ] = $val;
                 continue;
             }
@@ -130,7 +129,7 @@ class EmaDoctrine2 implements EmAdapterInterface
                 $entity->$method( $val );
                 continue;
             }
-            throw new \RuntimeException( "cannot set {$key} of an entity" );
+            throw new \RuntimeException( "cannot set '{$key}' property of an entity" );
         }
     }
 
