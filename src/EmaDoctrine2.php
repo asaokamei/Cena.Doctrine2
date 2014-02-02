@@ -46,7 +46,7 @@ class EmaDoctrine2 implements EmAdapterInterface
         $entity = new $class;
         $this->em->persist( $entity );
         if( $data ) {
-            $this->loadData( $entity, $data );
+            $this->assign( $entity, $data );
         }
         return $entity;
     }
@@ -112,7 +112,7 @@ class EmaDoctrine2 implements EmAdapterInterface
      * @throws \RuntimeException
      * @return mixed
      */
-    public function loadData( $entity, $data )
+    public function assign( $entity, $data )
     {
         foreach( $data as $key => $val )
         {
