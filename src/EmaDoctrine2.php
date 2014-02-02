@@ -99,7 +99,9 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function isCollection( $object )
     {
-        // TODO: Implement isCollection() method.
+        if( is_array( $object ) ) return true;
+        if( is_object( $object ) && $object instanceof \ArrayAccess ) return true;
+        return false;
     }
 
     /**
@@ -107,6 +109,7 @@ class EmaDoctrine2 implements EmAdapterInterface
      *
      * @param object $entity
      * @param array  $data
+     * @throws \RuntimeException
      * @return mixed
      */
     public function loadData( $entity, $data )
@@ -115,10 +118,19 @@ class EmaDoctrine2 implements EmAdapterInterface
         {
             if( isset( $entity->$key ) ) {
                 $entity->$key = $val;
-            } elseif( method_exists( $entity, 'set'.ucwords($key) ) ) {
-                $method = 'set'.ucwords($key);
-                $entity->$method( $val );
+                continue;
             }
+            if( is_array( $entity ) || 
+                ( is_object( $entity ) && $entity instanceof \ArrayAccess ) ) {
+                $entity[ $key ] = $val;
+                continue;
+            }
+            $method = 'set' . $this->makeBasicAccessor( $key );
+            if( method_exists( $entity, $method ) ) {
+                $entity->$method( $val );
+                continue;
+            }
+            throw new \RuntimeException( "cannot set {$key} of an entity" );
         }
     }
 
@@ -132,7 +144,17 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function relate( $entity, $name, $target )
     {
-        // TODO: Implement relate() method.
+        $meta = $this->em->getClassMetadata( get_class( $entity ) );
+        if( !$this->isCollection( $target ) ) {
+            $target = array( $target );
+        }
+        $method = 'set' . $this->makeBasicAccessor( $name );
+        if( $meta->isCollectionValuedAssociation( $name ) ) {
+            // $target should be a collection
+            $entity->$method( $target );
+            return;
+        }
+        $entity->$method( $target[0] );
     }
 
     /**
@@ -166,5 +188,20 @@ class EmaDoctrine2 implements EmAdapterInterface
         $meta = $this->em->getClassMetadata( get_class( $entity ) );
         $list = $meta->getAssociationNames();
         return $list;
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    public function makeBasicAccessor( $name )
+    {
+        $name = ucwords( $name );
+        if( strpos( $name, '_' ) !== false ) {
+            $list = explode( '_', $name );
+            array_walk( $list, function(&$a){$a=ucwords($a);} );
+            $name = implode( '', $list );
+        }
+        return $name;
     }
 }
