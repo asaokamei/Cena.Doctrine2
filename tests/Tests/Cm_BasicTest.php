@@ -169,4 +169,26 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         $cenaId = $this->cm->register( $message2 );
         $this->assertEquals( 'Message.1.'.$msg_id, $cenaId );
     }
+
+    /**
+     * @test
+     */
+    function getFieldList_returns_list_of_properties()
+    {
+        $entity = new Message();
+        $list = $this->ema->getFieldList( $entity );
+        $this->assertTrue( in_array( 'message_id', $list ) );
+        $this->assertTrue( in_array( 'message', $list ) );
+        $this->assertTrue( in_array( 'postedAt', $list ) );
+    }
+
+    /**
+     * @test
+     */
+    function getRelationList_returns_list_of_relations()
+    {
+        $entity = new Message();
+        $list = $this->ema->getRelationList( $entity );
+        $this->assertTrue( in_array( 'comments', $list ) );
+    }
 }

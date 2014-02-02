@@ -6,6 +6,7 @@ use Cena\Cena\Utils\ClassMap;
 use Cena\Cena\Utils\Collection;
 use Cena\Cena\Utils\Composition;
 use Cena\Cena\CenaManager;
+use Tests\Models\Message;
 
 /**
  * Class Cm_BasicTest
