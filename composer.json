@@ -10,8 +10,6 @@
     "minimum-stability": "dev",
     "require": {
         "cena/cena": "dev-master",
-        "wscore/datamapper": "dev-master",
-        "wscore/cena": "dev-master",
         "doctrine/orm": "2.4.*"
     }
 }
