@@ -11,5 +11,10 @@
     "require": {
         "cena/cena": "dev-master",
         "doctrine/orm": "2.4.*"
+    },
+    "autoload":{
+        "psr-4": {
+            "Cena\\Doctrine2\\":"src/"
+        }
     }
 }
