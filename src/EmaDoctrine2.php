@@ -125,17 +125,17 @@ class EmaDoctrine2 implements EmAdapterInterface
     {
         foreach( $data as $key => $val )
         {
-            if( property_exists( $entity, $key ) ) {
-                $entity->$key = $val;
+            $method = 'set' . $this->makeBasicAccessor( $key );
+            if( method_exists( $entity, $method ) ) {
+                $entity->$method( $val );
                 continue;
             }
             if( $entity instanceof \ArrayAccess ) {
                 $entity[ $key ] = $val;
                 continue;
             }
-            $method = 'set' . $this->makeBasicAccessor( $key );
-            if( method_exists( $entity, $method ) ) {
-                $entity->$method( $val );
+            if( property_exists( $entity, $key ) ) {
+                $entity->$key = $val;
                 continue;
             }
             throw new \RuntimeException( "cannot set '{$key}' property of an entity" );
