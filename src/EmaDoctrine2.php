@@ -62,6 +62,15 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
+     * @param object $entity
+     * @return mixed|void
+     */
+    public function deleteEntity( $entity )
+    {
+        $this->em->remove( $entity );
+    }
+
+    /**
      * returns if the $entity object is marked as delete.
      *
      * @param object $entity
