@@ -37,6 +37,14 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
+     * clears the entity cache. 
+     */
+    public function clear()
+    {
+        $this->em->clear();
+    }
+
+    /**
      * @param       $class
      * @param array $data
      * @return object
