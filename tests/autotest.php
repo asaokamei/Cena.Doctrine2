@@ -1,6 +1,5 @@
 <?php
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
+use Cena\Doctrine2\Factory;
 
 // set up Composer's auto loader. 
 if( file_exists( dirname( __DIR__ ) . '/vendor/autoload.php' ) ) {
@@ -17,7 +16,6 @@ $loader->register();
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
 $paths = array( dirname( __DIR__ ) ."/tests/Models");
-$isDevMode = false;
 
 $dbParams = array(
     'dbname' => 'test_doctrine',
@@ -27,5 +25,4 @@ $dbParams = array(
     'driver' => 'pdo_mysql',
 );
 
-$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
-return $entityManager = EntityManager::create($dbParams, $config);
+return Factory::em( $dbParams, $paths);

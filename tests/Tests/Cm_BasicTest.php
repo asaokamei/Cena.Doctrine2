@@ -2,8 +2,9 @@
 namespace Tests\Tests;
 
 use Cena\Cena\CenaManager;
-use Cena\Cena\Factory;
+use Cena\Cena\Factory as CenaFactory;
 use Cena\Doctrine2\EmaDoctrine2;
+use Cena\Doctrine2\Factory as Dc2Factory;
 use Doctrine\ORM\EntityManager;
 use Tests\Models\Comment;
 use Tests\Models\Message;
@@ -44,10 +45,8 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
     {
         $em = include( __DIR__ . '/../autotest.php' );
 
-        $this->ema = new EmaDoctrine2();
-        $this->ema->setEntityManager( $em );
-
-        $this->cm = Factory::cm( $this->ema );
+        $this->ema = Dc2Factory::ema( $em );
+        $this->cm  = CenaFactory::cm( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
         $this->cm->setClass( 'Tests\Models\Comment' );
     }
