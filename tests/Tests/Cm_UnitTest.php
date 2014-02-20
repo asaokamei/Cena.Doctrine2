@@ -1,12 +1,9 @@
 <?php
 namespace Tests\Tests;
 
+use Cena\Cena\Factory;
 use Cena\Doctrine2\EmaDoctrine2;
-use Cena\Cena\Utils\ClassMap;
-use Cena\Cena\Utils\Collection;
-use Cena\Cena\Utils\Composition;
 use Cena\Cena\CenaManager;
-use Tests\Models\Message;
 
 /**
  * Class Cm_BasicTest
@@ -36,12 +33,7 @@ class Cm_UnitTest extends \PHPUnit_Framework_TestCase
         $this->ema = new EmaDoctrine2();
         $this->ema->setEntityManager( $em );
 
-        $this->cm = new CenaManager(
-            new Composition(),
-            new Collection(),
-            new ClassMap()
-        );
-        $this->cm->setEntityManager( $this->ema );
+        $this->cm = Factory::cm( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
         $this->cm->setClass( 'Tests\Models\Comment' );
     }

@@ -2,9 +2,7 @@
 namespace Tests\Tests;
 
 use Cena\Cena\CenaManager;
-use Cena\Cena\Utils\ClassMap;
-use Cena\Cena\Utils\Collection;
-use Cena\Cena\Utils\Composition;
+use Cena\Cena\Factory;
 use Cena\Doctrine2\EmaDoctrine2;
 use Doctrine\ORM\EntityManager;
 use Tests\Models\Comment;
@@ -49,12 +47,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         $this->ema = new EmaDoctrine2();
         $this->ema->setEntityManager( $em );
 
-        $this->cm = new CenaManager(
-            new Composition(),
-            new Collection(),
-            new ClassMap()
-        );
-        $this->cm->setEntityManager( $this->ema );
+        $this->cm = Factory::cm( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
         $this->cm->setClass( 'Tests\Models\Comment' );
     }
@@ -73,7 +66,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         $cenaId  = $this->cm->cenaId( $message );
         
         $this->assertEquals( 'Tests\Models\Message', get_class( $message ) );
-        $this->assertEquals( 'Message.0.1', $cenaId );
+        $this->assertEquals( 'message.0.1', $cenaId );
     }
 
     /**
@@ -167,7 +160,7 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
         
         // now test registering the message2 as cena object.
         $cenaId = $this->cm->register( $message2 );
-        $this->assertEquals( 'Message.1.'.$msg_id, $cenaId );
+        $this->assertEquals( 'message.1.'.$msg_id, $cenaId );
     }
 
     /**

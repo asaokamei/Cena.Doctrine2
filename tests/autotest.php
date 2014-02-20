@@ -3,10 +3,13 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 // set up Composer's auto loader. 
-require_once( dirname( __DIR__ ) . '/vendor/autoload.php' );
-
-/** @var \Composer\Autoload\ClassLoader $loader */
-$loader = include( dirname( __DIR__ ) . '/vendor/autoload.php' );
+if( file_exists( dirname( __DIR__ ) . '/vendor/autoload.php' ) ) {
+    require_once( dirname( __DIR__ ) . '/vendor/autoload.php' );
+    $loader = include( dirname( __DIR__ ) . '/vendor/autoload.php' );
+} elseif( file_exists( dirname( __DIR__ ) . '/../../../vendor/autoload.php' ) ) {
+    require_once( dirname( __DIR__ ) . '/../../../vendor/autoload.php' );
+    $loader = include( dirname( __DIR__ ) . '/../../../vendor/autoload.php' );
+}
 
 $loader->addPsr4( 'Cena\\Doctrine2\\', dirname( __DIR__ ) .'/src' );
 $loader->addPsr4( 'Tests\\', __DIR__ );
