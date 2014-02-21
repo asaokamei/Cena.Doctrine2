@@ -185,6 +185,28 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
+     * @param object $entity
+     * @param string $key
+     * @return mixed|void
+     */
+    public function getFieldValue( $entity, $key )
+    {
+        $method = 'get' . $this->makeBasicAccessor( $key );
+        if( method_exists( $entity, $method ) ) {
+            return $entity->$method();
+        }
+        if( $entity instanceof \ArrayAccess ) {
+            if( array_key_exists( $key, $entity ) ) {
+                return $entity[ $key ];
+            }
+        }
+        if( property_exists( $entity, $key ) ) {
+            return $entity->$key;
+        }
+        return null;
+    }
+
+    /**
      * @param $entity
      * @return array|mixed
      */
