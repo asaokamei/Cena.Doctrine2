@@ -33,7 +33,7 @@ class Cm_UnitTest extends \PHPUnit_Framework_TestCase
         $this->ema = new EmaDoctrine2();
         $this->ema->setEntityManager( $em );
 
-        $this->cm = Factory::cm( $this->ema );
+        $this->cm = Factory::getCenaManager( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
         $this->cm->setClass( 'Tests\Models\Comment' );
     }

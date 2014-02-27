@@ -25,4 +25,4 @@ $dbParams = array(
     'driver' => 'pdo_mysql',
 );
 
-return Factory::em( $dbParams, $paths);
+return Factory::getEntityManager( $dbParams, $paths);

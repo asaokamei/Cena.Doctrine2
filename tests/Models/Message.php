@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
+ * @Table(name="test_message")
  */
 class Message
 {

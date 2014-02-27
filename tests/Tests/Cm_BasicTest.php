@@ -45,8 +45,8 @@ class Cm_BasicTest extends \PHPUnit_Framework_TestCase
     {
         $em = include( __DIR__ . '/../autotest.php' );
 
-        $this->ema = Dc2Factory::ema( $em );
-        $this->cm  = CenaFactory::cm( $this->ema );
+        $this->ema = Dc2Factory::getEmaDoctrine2( $em );
+        $this->cm  = CenaFactory::getCenaManager( $this->ema );
         $this->cm->setClass( 'Tests\Models\Message' );
         $this->cm->setClass( 'Tests\Models\Comment' );
     }

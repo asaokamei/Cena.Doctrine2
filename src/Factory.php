@@ -26,7 +26,7 @@ class Factory
      * @param EntityManager $em
      * @return EmaDoctrine2
      */
-    public static function ema( $em=null )
+    public static function getEmaDoctrine2( $em=null )
     {
         if( !$em ) $em = self::$em;
         self::$ema = new EmaDoctrine2();
@@ -40,9 +40,9 @@ class Factory
      * @param bool $isDevMode
      * @return EntityManager
      */
-    public static function em( $dbParams, $paths, $isDevMode=false )
+    public static function getEntityManager( $dbParams, $paths, $isDevMode=false )
     {
-        $config = self::config( $paths, $isDevMode );
+        $config = self::getConfig( $paths, $isDevMode );
         return self::$em = EntityManager::create($dbParams, $config);
     }
 
@@ -51,7 +51,7 @@ class Factory
      * @param bool   $isDevMode
      * @return Configuration
      */
-    public static function config( $paths, $isDevMode=false )
+    public static function getConfig( $paths, $isDevMode=false )
     {
         self::$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
         return self::$config;

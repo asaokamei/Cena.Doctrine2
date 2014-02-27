@@ -3,6 +3,7 @@ namespace Tests\Models;
 
 /**
  * @Entity
+ * @Table(name="test_comment")
  */
 class Comment
 {
