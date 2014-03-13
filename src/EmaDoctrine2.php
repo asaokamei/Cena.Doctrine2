@@ -101,11 +101,7 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function isRetrieved( $entity )
     {
-        $state = $this->em->getUnitOfWork()->getEntityState( $entity );
-        if( $state == UnitOfWork::STATE_MANAGED ) {
-            return true;
-        }
-        return false;
+        return !$this->em->getUnitOfWork()->isScheduledForInsert( $entity );
     }
 
     /**
