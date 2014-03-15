@@ -82,11 +82,7 @@ class EmaDoctrine2 implements EmAdapterInterface
      */
     public function isDeleted( $entity )
     {
-        $state = $this->em->getUnitOfWork()->getEntityState( $entity );
-        if( $state == UnitOfWork::STATE_REMOVED ) {
-            return true;
-        } 
-        return false;
+        return $this->em->getUnitOfWork()->isScheduledForDelete( $entity );
     }
 
     /**
