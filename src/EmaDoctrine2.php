@@ -123,26 +123,4 @@ class EmaDoctrine2 implements EmAdapterInterface
         $id = $meta->getIdentifierValues( $entity );
         return $id;
     }
-
-    /**
-     * @param $entity
-     * @return array|mixed
-     */
-    public function getFieldList( $entity )
-    {
-        $meta = $this->em->getClassMetadata( get_class( $entity ) );
-        $list = $meta->getFieldNames();
-        return $list;
-    }
-
-    /**
-     * @param object $entity
-     * @return array
-     */
-    public function getRelationList( $entity )
-    {
-        $meta = $this->em->getClassMetadata( get_class( $entity ) );
-        $list = $meta->getAssociationNames();
-        return $list;
-    }
 }
