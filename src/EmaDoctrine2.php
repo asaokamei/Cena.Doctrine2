@@ -114,35 +114,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * populate an entity with array data.
-     *
-     * @param object $entity
-     * @param array  $data
-     * @throws \RuntimeException
-     * @return mixed
-     */
-    public function assign( $entity, $data )
-    {
-        foreach( $data as $key => $val )
-        {
-            $method = 'set' . $this->makeBasicAccessor( $key );
-            if( method_exists( $entity, $method ) ) {
-                $entity->$method( $val );
-                continue;
-            }
-            if( $entity instanceof \ArrayAccess ) {
-                $entity[ $key ] = $val;
-                continue;
-            }
-            if( property_exists( $entity, $key ) ) {
-                $entity->$key = $val;
-                continue;
-            }
-            throw new \RuntimeException( "cannot set '{$key}' property of an entity" );
-        }
-    }
-
-    /**
      * @param object $entity
      * @return string|array
      */
@@ -151,28 +122,6 @@ class EmaDoctrine2 implements EmAdapterInterface
         $meta = $this->em->getClassMetadata( get_class( $entity ) );
         $id = $meta->getIdentifierValues( $entity );
         return $id;
-    }
-
-    /**
-     * @param object $entity
-     * @param string $key
-     * @return mixed|void
-     */
-    public function getFieldValue( $entity, $key )
-    {
-        $method = 'get' . $this->makeBasicAccessor( $key );
-        if( method_exists( $entity, $method ) ) {
-            return $entity->$method();
-        }
-        if( $entity instanceof \ArrayAccess ) {
-            if( array_key_exists( $key, $entity ) ) {
-                return $entity[ $key ];
-            }
-        }
-        if( property_exists( $entity, $key ) ) {
-            return $entity->$key;
-        }
-        return null;
     }
 
     /**
@@ -195,20 +144,5 @@ class EmaDoctrine2 implements EmAdapterInterface
         $meta = $this->em->getClassMetadata( get_class( $entity ) );
         $list = $meta->getAssociationNames();
         return $list;
-    }
-
-    /**
-     * @param $name
-     * @return string
-     */
-    public function makeBasicAccessor( $name )
-    {
-        $name = ucwords( $name );
-        if( strpos( $name, '_' ) !== false ) {
-            $list = explode( '_', $name );
-            array_walk( $list, function(&$a){$a=ucwords($a);} );
-            $name = implode( '', $list );
-        }
-        return $name;
     }
 }
