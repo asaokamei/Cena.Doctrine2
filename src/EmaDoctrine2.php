@@ -143,29 +143,6 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * relate $entity with $target object by $name relation.
-     *
-     * @param object $entity
-     * @param string $name
-     * @param object $target
-     * @return mixed
-     */
-    public function relate( $entity, $name, $target )
-    {
-        $meta = $this->em->getClassMetadata( get_class( $entity ) );
-        if( !$this->isCollection( $target ) ) {
-            $target = array( $target );
-        }
-        $method = 'set' . $this->makeBasicAccessor( $name );
-        if( $meta->isCollectionValuedAssociation( $name ) ) {
-            // $target should be a collection
-            $entity->$method( $target );
-            return;
-        }
-        $entity->$method( $target[0] );
-    }
-
-    /**
      * @param object $entity
      * @return string|array
      */
