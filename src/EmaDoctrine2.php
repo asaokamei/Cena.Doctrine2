@@ -45,17 +45,13 @@ class EmaDoctrine2 implements EmAdapterInterface
     }
 
     /**
-     * @param       $class
-     * @param array $data
+     * @param string $class
      * @return object
      */
-    public function newEntity( $class, $data=array() )
+    public function newEntity( $class )
     {
         $entity = new $class;
         $this->em->persist( $entity );
-        if( $data ) {
-            $this->assign( $entity, $data );
-        }
         return $entity;
     }
 
