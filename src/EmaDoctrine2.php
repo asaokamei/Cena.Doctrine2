@@ -119,4 +119,18 @@ class EmaDoctrine2 implements EmAdapterInterface
         $id = $meta->getIdentifierValues( $entity );
         return $id;
     }
+
+    /**
+     * relate the $object with $target as $name association.
+     * return true if handled in this method, or return false.
+     *
+     * @param object $object
+     * @param string $name
+     * @param object $target
+     * @return bool
+     */
+    public function relate( $object, $name, $target )
+    {
+        return false;
+    }
 }
