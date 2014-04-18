@@ -46,46 +46,6 @@ class Cm_UnitTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function makeBasicAccessor_generates_UcWords()
-    {
-        $origin = 'my_test';
-        $access = $this->ema->makeBasicAccessor( $origin );
-        $this->assertEquals( 'MyTest', $access );
-    }
-
-    /**
-     * @test
-     */
-    function makeBasicAccessor_single_word()
-    {
-        $origin = 'test';
-        $access = $this->ema->makeBasicAccessor( $origin );
-        $this->assertEquals( 'Test', $access );
-    }
-
-    /**
-     * @test
-     */
-    function makeBasicAccessor_two_underscore()
-    {
-        $origin = 'my__test';
-        $access = $this->ema->makeBasicAccessor( $origin );
-        $this->assertEquals( 'MyTest', $access );
-    }
-
-    /**
-     * @test
-     */
-    function makeBasicAccessor_upper_case()
-    {
-        $origin = 'MY_test';
-        $access = $this->ema->makeBasicAccessor( $origin );
-        $this->assertEquals( 'MYTest', $access );
-    }
-
-    /**
-     * @test
-     */
     function isCollection_returns_true_for_array()
     {
         $array = array( 'test' );
@@ -111,68 +71,4 @@ class Cm_UnitTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse( $this->ema->isCollection( 'hi' ) );
     }
 
-    /**
-     * @test
-     */
-    function assign_sets_data_to_object()
-    {
-        $data = array(
-            'test' => 'value' . md5(uniqid()),
-            'more' => 'more ' . md5(uniqid()),
-        );
-        $entity = new \StdClass();
-        $entity->test = null;
-        $entity->more = null;
-        $this->ema->assign( $entity, $data );
-        $this->assertEquals( $data['test'], $entity->test );
-        $this->assertEquals( $data['more'], $entity->more );
-    }
-
-    /**
-     * @test
-     * @expectedException \RuntimeException
-     */
-    function assign_throws_exception()
-    {
-        $data = array(
-            'test' => 'value' . md5(uniqid()),
-        );
-        $entity = new \StdClass();
-        $this->ema->assign( $entity, $data );
-    }
-
-    /**
-     * @test
-     */
-    function assign_to_setter_method()
-    {
-        $data = array(
-            'test' => 'test setter',
-        );
-        $entity = $this->getmock( '\StdClass', array('setTest') );
-        $entity->expects( $this->any() )
-            ->method( 'setTest' )
-            ->with(
-                $this->equalTo( 'test setter' )
-            );
-        $this->ema->assign( $entity, $data );
-    }
-
-    /**
-     * @test
-     */
-    function assign_to_ArrayAccess()
-    {
-        $data = array(
-            'test' => 'test array',
-        );
-        $entity = $this->getmock( '\ArrayAccess', array('offsetSet','offsetExists','offsetGet','offsetUnset') );
-        $entity->expects( $this->any() )
-            ->method( 'offsetSet' )
-            ->with(
-                $this->equalTo( 'test' ),
-                $this->equalTo( 'test array' )
-            );
-        $this->ema->assign( $entity, $data );
-    }
 }
